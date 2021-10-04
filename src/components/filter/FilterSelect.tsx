@@ -5,10 +5,11 @@ interface FilterSelectInt {
   handleChange: any;
   label: string;
   launchSite: any;
+  typeFilter: number;
 }
 
 export const FilterSelect = (props: FilterSelectInt) => {
-  const { selectValue, handleChange, launchSite, label } = props;
+  const { selectValue, handleChange, launchSite, label, typeFilter } = props;
   return (
     <div>
       <p>{label}</p>
