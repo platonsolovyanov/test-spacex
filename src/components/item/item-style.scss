@@ -1,0 +1,33 @@
+.mission-item {
+  display: flex;
+  margin: 30px;
+}
+
+.img-rocket {
+  width: 200px;
+  height: 200px;
+}
+
+.mission-info {
+  width: 100%;
+}
+
+.mission-info__top {
+  display: flex;
+  justify-content: space-between;
+  // flex-direction: column;
+
+  .name {
+    padding: 10px 0 0 10px;
+  }
+
+  .date {
+    padding: 10px 0 0 10px;
+  }
+}
+
+.details {
+  padding: 10px;
+  color: gray;
+  font-size: 16px;
+}
