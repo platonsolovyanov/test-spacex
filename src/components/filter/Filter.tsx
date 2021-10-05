@@ -12,8 +12,6 @@ export const FilterWrapper = (props: FilterInt) => {
 
   const [selectValue, setSelectValue] = React.useState();
 
-  console.log(TypeFilter.LaunchSite);
-
   function handleChange(event: any) {
     console.log(event.target.value);
   }
@@ -22,14 +20,14 @@ export const FilterWrapper = (props: FilterInt) => {
       <FilterSelect
         selectValue={selectValue}
         handleChange={handleChange}
-        launchSite={launchSite}
+        selectOption={launchSite}
         label="Launches"
         typeFilter={TypeFilter.LaunchSite}
       />
       <FilterSelect
         selectValue={selectValue}
         handleChange={handleChange}
-        launchSite={spaceRocket}
+        selectOption={spaceRocket}
         label="Rocket"
         typeFilter={TypeFilter.SpaceRocket}
       />

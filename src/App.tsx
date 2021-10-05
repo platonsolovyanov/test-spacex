@@ -15,6 +15,21 @@ interface SpaceRocketInt {
   rocket_type: string;
 }
 
+const gag = [
+  {
+    rocket: {
+      rocket: "falcon1",
+      rocket_name: "Falcon 1",
+      rocket_type: "Merlin A",
+    },
+    launch_site: {
+      site_id: "kwajalein_atoll",
+      site_name: "Kwajalein Atoll",
+      site_name_long: "Kwajalein Atoll Omelek Island",
+    },
+  },
+];
+
 export const App = () => {
   const [spaceXData, setSpaceXData] = React.useState([]);
   const [launchSite, setLaunchSite] = React.useState<LaunchSiteInt[]>([]);
@@ -28,8 +43,6 @@ export const App = () => {
   spaceXData.map((elMap) => {
     const site = elMap["launch_site"];
     const rocket = elMap["rocket"];
-    // ["rocket_name"]
-    console.log(rocket);
 
     const checkSite = launchSite.some((elSomeSite) => {
       return site["site_id"] === elSomeSite.site_id;
@@ -56,8 +69,6 @@ export const App = () => {
       ]);
     }
   });
-
-  console.log(spaceRocket);
 
   return (
     <div className="lo">
