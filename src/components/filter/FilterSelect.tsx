@@ -4,22 +4,29 @@ interface FilterSelectInt {
   selectValue: any;
   handleChange: any;
   label: string;
-  launchSite: any;
+  selectOption: any;
   typeFilter: number;
 }
 
 export const FilterSelect = (props: FilterSelectInt) => {
-  const { selectValue, handleChange, launchSite, label, typeFilter } = props;
+  const { selectValue, handleChange, selectOption, label, typeFilter } = props;
+  console.log(typeFilter);
   return (
     <div>
       <p>{label}</p>
       <select value={selectValue} onChange={handleChange}>
         <option value="NONE">None</option>
-        {launchSite.map((el: any, index: number) => {
+        {selectOption.map((el: any, index: number) => {
           return (
-            <option value={el.site_name} key={index}>
-              {el.site_name}
-            </option>
+            (!typeFilter && (
+              <option value={el.site_name} key={index}>
+                {el.site_name}
+              </option>
+            )) || (
+              <option value={el.rocket_name} key={index}>
+                {el.rocket_name}
+              </option>
+            )
           );
         })}
       </select>
