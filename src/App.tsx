@@ -2,7 +2,7 @@ import * as React from "react";
 import "./app-style.scss";
 
 import { Item } from "./components/item/Item";
-import { FilterWrapper } from "./components/filter/Filter";
+import { FilterWrapper } from "./components/filter/FilterWrapper";
 
 interface LaunchSiteInt {
   site_id: string;
@@ -15,30 +15,33 @@ interface SpaceRocketInt {
   rocket_type: string;
 }
 
-const gag = [
-  {
-    rocket: {
-      rocket: "falcon1",
-      rocket_name: "Falcon 1",
-      rocket_type: "Merlin A",
-    },
-    launch_site: {
-      site_id: "kwajalein_atoll",
-      site_name: "Kwajalein Atoll",
-      site_name_long: "Kwajalein Atoll Omelek Island",
-    },
-  },
-];
+// const gag = [
+//   {
+//     rocket: {
+//       rocket: "falcon1",
+//       rocket_name: "Falcon 1",
+//       rocket_type: "Merlin A",
+//     },
+//     launch_site: {
+//       site_id: "kwajalein_atoll",
+//       site_name: "Kwajalein Atoll",
+//       site_name_long: "Kwajalein Atoll Omelek Island",
+//     },
+//   },
+// ];
 
 export const App = () => {
-  const [spaceXData, setSpaceXData] = React.useState([]);
-  const [launchSite, setLaunchSite] = React.useState<LaunchSiteInt[]>([]);
-  const [spaceRocket, setSpaceRocket] = React.useState<SpaceRocketInt[]>([]);
   React.useEffect(() => {
     fetch("https://api.spacexdata.com/v3/launches")
       .then((el) => el.json())
       .then((item) => setSpaceXData(item));
   }, []);
+
+  const [spaceXData, setSpaceXData] = React.useState([]);
+  const [launchSite, setLaunchSite] = React.useState<LaunchSiteInt[]>([]);
+  const [spaceRocket, setSpaceRocket] = React.useState<SpaceRocketInt[]>([]);
+
+  const [filterSpaceXData, setFilterSpaceXData] = React.useState([]);
 
   spaceXData.map((elMap) => {
     const site = elMap["launch_site"];
@@ -72,7 +75,13 @@ export const App = () => {
 
   return (
     <div className="lo">
-      <FilterWrapper launchSite={launchSite} spaceRocket={spaceRocket} />
+      <FilterWrapper
+        spaceXData={spaceXData}
+        launchSite={launchSite}
+        spaceRocket={spaceRocket}
+        filterSpaceXData={filterSpaceXData}
+        setFilterSpaceXData={setFilterSpaceXData}
+      />
       <Item spaceXData={spaceXData} />
     </div>
   );
