@@ -7,8 +7,6 @@ interface FilterSelectInt {
   typeFilter: string;
 }
 
-// 'launchSite' 'spaceRocket'
-
 export const FilterSelect = (props: FilterSelectInt) => {
   const { handleChange, selectOption, label, typeFilter } = props;
   return (

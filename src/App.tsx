@@ -15,26 +15,14 @@ interface SpaceRocketInt {
   rocket_type: string;
 }
 
-// const gag = [
-//   {
-//     rocket: {
-//       rocket: "falcon1",
-//       rocket_name: "Falcon 1",
-//       rocket_type: "Merlin A",
-//     },
-//     launch_site: {
-//       site_id: "kwajalein_atoll",
-//       site_name: "Kwajalein Atoll",
-//       site_name_long: "Kwajalein Atoll Omelek Island",
-//     },
-//   },
-// ];
-
 export const App = () => {
   React.useEffect(() => {
     fetch("https://api.spacexdata.com/v3/launches")
       .then((el) => el.json())
-      .then((item) => setSpaceXData(item));
+      .then((item) => {
+        setSpaceXData(item);
+        setFilterSpaceXData(item);
+      });
   }, []);
 
   const [spaceXData, setSpaceXData] = React.useState([]);
@@ -82,7 +70,7 @@ export const App = () => {
         filterSpaceXData={filterSpaceXData}
         setFilterSpaceXData={setFilterSpaceXData}
       />
-      <Item spaceXData={spaceXData} />
+      <Item spaceXData={filterSpaceXData} />
     </div>
   );
 };

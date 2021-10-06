@@ -35,9 +35,27 @@ export const FilterWrapper = (props: FilterInt) => {
     if (nameSelect === "spaceRocket") {
       setSelectValue({ ...selectValue, spaceRocket: valueSelect });
     }
-
-    console.log(selectValue);
   }
+
+  React.useEffect(() => {
+    const newArrLaunchSite = spaceXData.filter((elFilter: any) => {
+      const launchSite = elFilter["launch_site"]["site_name"];
+      if (selectValue.launchSite !== "NONE") {
+        return launchSite === selectValue.launchSite;
+      }
+      return true;
+    });
+
+    const newFinalArr = newArrLaunchSite.filter((elFilter: any) => {
+      const nameRocket = elFilter["rocket"]["rocket_name"];
+      if (selectValue.spaceRocket !== "NONE") {
+        return nameRocket === selectValue.spaceRocket;
+      }
+      return true;
+    });
+
+    setFilterSpaceXData(newFinalArr);
+  }, [selectValue]);
 
   return (
     <div className="filter-wrapper">
@@ -61,18 +79,3 @@ enum TypeFilter {
   LaunchSite = "launchSite",
   SpaceRocket = "spaceRocket",
 }
-
-// if (nameSelect === "launchSite") {
-
-//   const newArrLaunchSite = spaceXData.filter((elFilter: any) => {
-//     return elFilter["launch_site"]["site_name"] === valueSelect;
-//   });
-//   // setFilterSpaceXData([...filterSpaceXData, ...newArrLaunchSite]);
-// }
-// if (nameSelect === "spaceRocket") {
-//   // const newArrSpaceRocket = spaceXData.filter((elFilter: any) => {
-//   //   return elFilter["rocket"]["rocket_name"] === valueSelect;
-//   // });
-//   // setFilterSpaceXData([...filterSpaceXData, ...newArrSpaceRocket]);
-//   // console.log(newArrSpaceRocket);
-// }
