@@ -1,24 +1,30 @@
 import * as React from "react";
 
 interface FilterSelectInt {
-  selectValue: any;
   handleChange: any;
   label: string;
-  launchSite: any;
+  selectOption: any;
+  typeFilter: string;
 }
 
 export const FilterSelect = (props: FilterSelectInt) => {
-  const { selectValue, handleChange, launchSite, label } = props;
+  const { handleChange, selectOption, label, typeFilter } = props;
   return (
     <div>
       <p>{label}</p>
-      <select value={selectValue} onChange={handleChange}>
+      <select name={typeFilter} onChange={handleChange}>
         <option value="NONE">None</option>
-        {launchSite.map((el: any, index: number) => {
+        {selectOption.map((el: any, index: number) => {
           return (
-            <option value={el.site_name} key={index}>
-              {el.site_name}
-            </option>
+            (typeFilter === "launchSite" && (
+              <option value={el.site_name} key={index}>
+                {el.site_name}
+              </option>
+            )) || (
+              <option value={el.rocket_name} key={index}>
+                {el.rocket_name}
+              </option>
+            )
           );
         })}
       </select>

@@ -2,42 +2,75 @@ import * as React from "react";
 import "./app-style.scss";
 
 import { Item } from "./components/item/Item";
-import { FilterWrapper } from "./components/filter/Filter";
+import { FilterWrapper } from "./components/filter/FilterWrapper";
 
-interface SpaceRocketIdInt {
+interface LaunchSiteInt {
   site_id: string;
   site_name: string;
 }
 
+interface SpaceRocketInt {
+  rocket_id: string;
+  rocket_name: string;
+  rocket_type: string;
+}
+
 export const App = () => {
-  const [spaceXData, setSpaceXData] = React.useState([]);
-  const [spaceRocketId, setSpaceRocket] = React.useState([]);
-  const [launchSite, setLaunchSite] = React.useState<SpaceRocketIdInt[]>([]);
   React.useEffect(() => {
     fetch("https://api.spacexdata.com/v3/launches")
       .then((el) => el.json())
-      .then((item) => setSpaceXData(item));
+      .then((item) => {
+        setSpaceXData(item);
+        setFilterSpaceXData(item);
+      });
   }, []);
+
+  const [spaceXData, setSpaceXData] = React.useState([]);
+  const [launchSite, setLaunchSite] = React.useState<LaunchSiteInt[]>([]);
+  const [spaceRocket, setSpaceRocket] = React.useState<SpaceRocketInt[]>([]);
+
+  const [filterSpaceXData, setFilterSpaceXData] = React.useState([]);
 
   spaceXData.map((elMap) => {
     const site = elMap["launch_site"];
+    const rocket = elMap["rocket"];
 
-    const check = launchSite.some((elSome) => {
-      return site["site_id"] === elSome.site_id;
+    const checkSite = launchSite.some((elSomeSite) => {
+      return site["site_id"] === elSomeSite.site_id;
     });
 
-    if (!check) {
+    const checkRocket = spaceRocket.some((elSomeRocket) => {
+      return rocket["rocket_id"] === elSomeRocket.rocket_id;
+    });
+
+    if (!checkSite) {
       setLaunchSite([
         ...launchSite,
         { site_id: site["site_id"], site_name: site["site_name"] },
+      ]);
+    }
+    if (!checkRocket) {
+      setSpaceRocket([
+        ...spaceRocket,
+        {
+          rocket_id: rocket["rocket_id"],
+          rocket_name: rocket["rocket_name"],
+          rocket_type: rocket["rocket_type"],
+        },
       ]);
     }
   });
 
   return (
     <div className="lo">
-      <FilterWrapper launchSite={launchSite} />
-      <Item spaceXData={spaceXData} />
+      <FilterWrapper
+        spaceXData={spaceXData}
+        launchSite={launchSite}
+        spaceRocket={spaceRocket}
+        filterSpaceXData={filterSpaceXData}
+        setFilterSpaceXData={setFilterSpaceXData}
+      />
+      <Item spaceXData={filterSpaceXData} />
     </div>
   );
 };
