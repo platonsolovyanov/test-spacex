@@ -61,6 +61,8 @@ export const App = () => {
     }
   });
 
+  console.log(spaceXData);
+
   return (
     <div className="lo">
       <FilterWrapper

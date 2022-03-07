@@ -3,7 +3,7 @@ import * as React from "react";
 import { FilterSelect } from "./FilterSelect";
 
 interface FilterInt {
-  spaceXData: any;
+  spaceXData: never[];
   launchSite: any;
   spaceRocket: any;
   setFilterSpaceXData: any;
